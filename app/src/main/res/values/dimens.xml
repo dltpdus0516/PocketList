@@ -1,4 +1,0 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <dimen name="design_fab_size_normal" tools:override="true">70dp</dimen>
-    <dimen name="design_fab_image_size" tools:override="true">35dp</dimen>
-</resources>
