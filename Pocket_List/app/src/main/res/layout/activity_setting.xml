@@ -84,12 +84,9 @@
                 android:id="@+id/spinner"
                 android:spinnerMode="dropdown"
                 android:popupBackground="#fff"
-                android:dropDownWidth="150dp"
-                android:gravity="center"
-                android:textSize="20dp"
-                android:fontFamily="@font/lottedream_light"
+                android:dropDownWidth="wrap_content"
                 android:dropDownSelector="@color/mainColor"
-                android:dropDownVerticalOffset="30dp"/>
+                android:dropDownVerticalOffset="40dp"/>
 
         </LinearLayout>
         <!-- 정렬 -->
