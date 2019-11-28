@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:orientation="horizontal"
+        android:elevation="7dp"
+        android:layout_marginBottom="15dp">
         android:background="@drawable/bar_background"
         android:gravity="center">
 

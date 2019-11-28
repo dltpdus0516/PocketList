@@ -18,7 +18,6 @@ public class MainActivity extends Activity {
 
         settingBtn = (ImageButton)findViewById(R.id.settingBtn);
 
-
         // 환경설정 버튼 누르면 SettingActivity를 불러옴
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
