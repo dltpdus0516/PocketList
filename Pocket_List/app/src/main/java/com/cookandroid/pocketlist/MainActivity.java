@@ -3,13 +3,16 @@ package com.cookandroid.pocketlist;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ImageButton;
 
 public class MainActivity extends Activity {
 
+    FloatingActionButton editBtn;
     ImageButton settingBtn;
-    Intent settingIntent;
+    Intent settingIntent, editIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,17 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 settingIntent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(settingIntent);
+
+            }
+        });
+
+        editBtn = findViewById(R.id.editBtn);
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editIntent = new Intent(MainActivity.this, EditActivity.class);
+                startActivity(editIntent);
+                overridePendingTransition(R.anim.slide_down, R.anim.slide_not);
             }
         });
     }

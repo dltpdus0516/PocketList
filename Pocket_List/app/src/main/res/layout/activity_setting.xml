@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:track="@drawable/switch_track_selector"
                 android:thumb="@drawable/switch_thumb"
-                android:id="@+id/swcomplete"/>
+                android:id="@+id/swShow"/>
 
         </LinearLayout>
         <!-- 완료 목록 표시 -->

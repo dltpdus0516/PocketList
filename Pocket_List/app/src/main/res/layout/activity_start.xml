@@ -3,12 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:background="#fff">
 
     <ImageView
-        android:layout_width="230dp"
-        android:layout_height="230dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:src="@drawable/pocket_list_logo"
-        android:layout_marginTop="200dp"/>
+        android:layout_marginTop="120dp"/>
 
 </LinearLayout>

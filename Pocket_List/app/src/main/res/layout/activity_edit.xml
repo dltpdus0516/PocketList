@@ -1,7 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:background="#fff"
+    android:gravity="center_horizontal"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <!--
+    EditText에 자동 포커스 막기
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+     -->
+
+    <!-- 사진 -->
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:backgroundTint="@color/mainColor"
+        android:layout_marginTop="130dp"
+        android:elevation="10dp"
+        android:src="@drawable/picture"
+        android:scaleType="fitCenter"
+        android:background="#fff"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lottedream_light"
+        android:text="사진 삭제"
+        android:textColor="@color/textColor"
+        android:textSize="17dp"
+        android:background="#fff"
+        android:elevation="0dp"
+        android:layout_marginBottom="70dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:id="@+id/photoDeleteBtn"/>
+    <!-- 사진 -->
+
+    <!-- 버킷명 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/linear_background"
+        android:gravity="center"
+        android:padding="20dp"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:text="버킷명"
+            android:textSize="22dp"
+            android:fontFamily="@font/lottedream_medium"
+            android:layout_marginRight="2dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/mainColor"
+            android:text="˙"
+            android:textSize="22dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/lottedream_medium"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/lottedream_light"
+            android:textColor="@color/textColor"
+            android:background="#fff"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+    <!-- 버킷명 -->
+
+    <!-- 설명 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/linear_background"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:text="설명"
+            android:textSize="22dp"
+            android:fontFamily="@font/lottedream_medium"
+            android:layout_marginBottom="20dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/lottedream_light"
+            android:textColor="@color/textColor"
+            android:background="#fff"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+    <!-- 설명 -->
+
+    <!-- 중요도 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/linear_background"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:text="중요도"
+            android:textSize="22dp"
+            android:fontFamily="@font/lottedream_medium"
+            android:layout_marginRight="2dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/mainColor"
+            android:text="˙"
+            android:textSize="22dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/lottedream_medium"
+            android:textStyle="bold"/>
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/star"
+            android:id="@+id/star1"
+            android:layout_marginRight="5dp"
+            android:background="#fff"
+            android:adjustViewBounds="true"
+            android:padding="0dp"
+            android:scaleType="fitCenter"/>
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/star_empty"
+            android:id="@+id/star2"
+            android:layout_marginRight="5dp"
+            android:background="#fff"
+            android:adjustViewBounds="true"
+            android:padding="0dp"
+            android:scaleType="fitCenter"/>
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/star_empty"
+            android:id="@+id/star3"
+            android:layout_marginRight="5dp"
+            android:background="#fff"
+            android:adjustViewBounds="true"
+            android:padding="0dp"
+            android:scaleType="fitCenter"/>
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/star_empty"
+            android:id="@+id/star4"
+            android:layout_marginRight="5dp"
+            android:background="#fff"
+            android:adjustViewBounds="true"
+            android:padding="0dp"
+            android:scaleType="fitCenter"/>
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/star_empty"
+            android:id="@+id/star5"
+            android:layout_marginRight="5dp"
+            android:background="#fff"
+            android:adjustViewBounds="true"
+            android:padding="0dp"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
+    <!-- 중요도 -->
+
+    <!-- 완료 예정일 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/linear_background"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:layout_marginBottom="30dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:text="완료 예정일"
+            android:textSize="22dp"
+            android:fontFamily="@font/lottedream_medium"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lottedream_light"
+            android:textSize="15dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/plus_purple"
+            android:id="@+id/dateBtn"
+            android:background="#fff"
+            android:adjustViewBounds="true"
+            android:padding="0dp"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
+    <!-- 완료 예정일 -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <!-- 플로팅 버튼 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="200dp">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/cancelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="40dp"
+            app:elevation="1dp"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/plus"
+            android:rotation="45"
+            app:backgroundTint="@color/mainColor"
+            app:fabSize="normal"
+            android:layout_marginLeft="10dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginBottom="40dp"
+            app:elevation="1dp"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/complete_white"
+            app:backgroundTint="@color/mainColor"
+            app:fabSize="normal"
+            android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
+    <!-- 플로팅 버튼 -->
 
 </LinearLayout>
