@@ -4,24 +4,53 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
     FloatingActionButton editBtn;
     ImageButton settingBtn;
     Intent settingIntent, editIntent;
+    RecyclerView recyclerView;
+    LinearLayoutManager layoutManager;
+    ListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        settingBtn = (ImageButton)findViewById(R.id.settingBtn);
+        /* 리사이클 뷰 */
+        recyclerView = findViewById(R.id.recycler);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this, LinearLayout.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new ListAdapter();
+
+        adapter.addItem(new List("자퇴하기", "세연이 바보", 3, 2019, 12, 01));
+
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new OnListItemClickListener() {
+            @Override
+            public void onItemClick(ListAdapter.ViewHolder holder, View view, int position) {
+                List item = adapter.getItem(position);
+                Toast.makeText(getApplicationContext(), item.getName() + " 선택", Toast.LENGTH_SHORT).show();
+
+                // ******************************요기에서 편집/완료/삭제 선택하는거 튀어나오게 하면 됨 ******************************
+            }
+        });
+        /* 리사이클 뷰 */
 
         // 환경설정 버튼 누르면 SettingActivity를 불러옴
+        settingBtn = (ImageButton)findViewById(R.id.settingBtn);
+
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

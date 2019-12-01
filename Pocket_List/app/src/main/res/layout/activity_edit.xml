@@ -79,7 +79,8 @@
             android:fontFamily="@font/lottedream_light"
             android:textColor="@color/textColor"
             android:background="#fff"
-            android:textSize="15dp"/>
+            android:textSize="15dp"
+            android:id="@+id/name"/>
 
     </LinearLayout>
     <!-- 버킷명 -->
@@ -109,7 +110,8 @@
             android:fontFamily="@font/lottedream_light"
             android:textColor="@color/textColor"
             android:background="#fff"
-            android:textSize="15dp"/>
+            android:textSize="15dp"
+            android:id="@+id/info"/>
 
     </LinearLayout>
     <!-- 설명 -->
