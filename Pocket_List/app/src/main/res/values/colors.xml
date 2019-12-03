@@ -7,4 +7,5 @@
     <color name="ListLineColor">#f0f3f4</color>
     <color name="SearchTextColor">#6E8CA0</color>
     <color name="SearchBoxColor">#C8D1D3</color>
+    <color name="white">#fff</color>
 </resources>

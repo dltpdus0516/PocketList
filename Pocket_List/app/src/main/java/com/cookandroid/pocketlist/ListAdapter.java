@@ -102,8 +102,4 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
     public List getItem(int position){
         return items.get(position);
     }
-
-    public List setItem(int position, List item){
-        return items.set(position, item);
-    }
 }

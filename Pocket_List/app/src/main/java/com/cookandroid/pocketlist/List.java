@@ -39,7 +39,7 @@ public class List {
         return date;
     }
 
-    public void setYear(String date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

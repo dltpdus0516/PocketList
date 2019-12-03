@@ -12,7 +12,6 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -36,7 +35,6 @@ public class EditActivity extends Activity {
     int starCnt = 1; // DB에 넘길 값
     ImageButton star1, star2, star3, star4, star5;
 
-    int setY, setM, setD;
     int dateBtnState = 0;
     TextView date;
     ImageButton  dateBtn;
@@ -174,10 +172,6 @@ public class EditActivity extends Activity {
                             dateBtnState = 1;
                             date.setText(year + "년 " + monthOfYear + "월 " + dayOfMonth + "일");
                             dateBtn.setRotation(45);
-
-                            setY = year;
-                            setM = monthOfYear;
-                            setD = dayOfMonth;
                         }
                     },year, monthOfYear, dayOfMonth);
                     datePickerDialog.getDatePicker().setMinDate(mindate.getTime().getTime()); // 오늘 이전 날짜는 선택하지 못하도록 함
@@ -187,10 +181,6 @@ public class EditActivity extends Activity {
                     dateBtnState = 0;
                     date.setText("");
                     dateBtn.setRotation(0);
-
-                    setY = 0;
-                    setM = 0;
-                    setD = 0;
                 }
             }
         });
