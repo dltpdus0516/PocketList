@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> implements OnListItemClickListener { // 어댑터 클래스가 새로 정의한 리스너 인터페이스 구현하도록 하기
@@ -46,16 +45,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
     }
 
     static class ViewHolder extends  RecyclerView.ViewHolder{
-    TextView bucketName, bucketInfo, bucketDate;
-    ImageView picture, star1, star2, star3, star4, star5;
+        TextView name, info, date;
+        ImageView picture, star1, star2, star3, star4, star5;
 
         public ViewHolder(View itemView, final OnListItemClickListener listener) { // 뷰홀더 생성자로 전달되는 뷰 객체 참조하기
             super(itemView);
 
             picture = itemView.findViewById(R.id.picture);
-            bucketName = itemView.findViewById(R.id.bucketName);
-            bucketInfo = itemView.findViewById(R.id.bucketInfo);
-            bucketDate = itemView.findViewById(R.id.bucketDate);
+            name = itemView.findViewById(R.id.name);
+            info = itemView.findViewById(R.id.info);
+            date = itemView.findViewById(R.id.date);
             star1 = itemView.findViewById(R.id.star1);
             star2 = itemView.findViewById(R.id.star2);
             star3 = itemView.findViewById(R.id.star3);
@@ -76,9 +75,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
 
         public void setItem(List item){
             picture.setImageResource(R.drawable.picture);
-            bucketName.setText(item.getName());
-            bucketInfo.setText(item.getInfo());
-            bucketDate.setText(item.getYear() + "년 " + item.getMonth() + "월 " + item.getDay() + "일");
+            name.setText(item.getName());
+            info.setText(item.getInfo());
+            date.setText(item.getDate());
             for(int i = 1; i <= item.getStar(); i++) {
                 if (i == 2)
                     star2.setImageResource(R.drawable.star);

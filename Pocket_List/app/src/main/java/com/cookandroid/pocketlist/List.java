@@ -1,20 +1,14 @@
 package com.cookandroid.pocketlist;
 
 public class List {
-    String name;
-    String  info;
+    String name, info, date;
     int star;
-    int year;
-    int month;
-    int day;
 
-    public List(String name, String info, int star, int year, int month, int day) {
+    public List(String name, String info, int star, String date) {
         this.name = name;
         this.info = info;
         this.star = star;
-        this.year = year;
-        this.month = month;
-        this.day = day;
+        this.date = date;
     }
 
     public String getName() {
@@ -41,27 +35,11 @@ public class List {
         this.star = star;
     }
 
-    public int getYear() {
-        return year;
+    public String getDate() {
+        return date;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
+    public void setYear(String date) {
+        this.date = date;
     }
 }

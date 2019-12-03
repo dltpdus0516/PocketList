@@ -24,6 +24,5 @@ public class StartActivity extends Activity {
                 finish();
             }
         }, 1000);
-
     }
 }

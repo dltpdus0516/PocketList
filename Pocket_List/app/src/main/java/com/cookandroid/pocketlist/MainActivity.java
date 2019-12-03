@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ListAdapter();
 
-        adapter.addItem(new List("자퇴하기", "세연이 바보", 3, 2019, 12, 01));
+        adapter.addItem(new List("자퇴하기", "세연이 바보", 3, "2019년 12월 03일"));
 
         recyclerView.setAdapter(adapter);
 
@@ -50,7 +50,6 @@ public class MainActivity extends Activity {
 
         // 환경설정 버튼 누르면 SettingActivity를 불러옴
         settingBtn = (ImageButton)findViewById(R.id.settingBtn);
-
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
