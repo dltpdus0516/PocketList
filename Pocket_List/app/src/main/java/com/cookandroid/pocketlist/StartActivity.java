@@ -3,6 +3,7 @@ package com.cookandroid.pocketlist;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 public class StartActivity extends Activity {
 
@@ -13,7 +14,16 @@ public class StartActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        mainIntent = new Intent(StartActivity.this, MainActivity.class);
-        startActivity(mainIntent);
+        Handler hand = new Handler();
+
+        hand.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mainIntent = new Intent(StartActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+                finish();
+            }
+        }, 1000);
+
     }
 }

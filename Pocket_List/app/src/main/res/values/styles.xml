@@ -7,4 +7,9 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <!-- Dialog 색 변경 -->
+    <style name="DialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/mainColor</item>
+    </style>
+
 </resources>

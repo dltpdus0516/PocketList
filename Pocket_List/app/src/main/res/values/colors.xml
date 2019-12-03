@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="mainColor">#D5C0FF</color>
+    <color name="mainColor">#d5c0ff</color>
     <color name="textColor">#334856</color>
     <color name="LineColor">#E0E1E2</color>
     <color name="BarLineColor">#E0E1E2</color>
-    <color name="ListLineColor">#F0F3F4</color>
+    <color name="ListLineColor">#f0f3f4</color>
     <color name="SearchTextColor">#6E8CA0</color>
     <color name="SearchBoxColor">#C8D1D3</color>
 </resources>

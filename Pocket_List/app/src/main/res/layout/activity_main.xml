@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,8 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:orientation="horizontal"
-        android:elevation="7dp"
-        android:layout_marginBottom="15dp">
         android:background="@drawable/bar_background"
         android:gravity="center">
 
@@ -56,103 +55,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="30dp"
-        android:paddingRight="30dp">
+        android:paddingRight="30dp"
+        android:orientation="vertical">
 
-        <!-- List1 -->
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:background="@drawable/list_background">
+            android:layout_height="wrap_content"
+            android:id="@+id/recycler"/>
 
-            <ImageView
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:src="@drawable/picture"
-                android:id="@+id/picture1"
-                android:layout_marginRight="20dp"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColor"
-                    android:textSize="20dp"
-                    android:text="버킷명"
-                    android:fontFamily="@font/lottedream_medium"
-                    android:id="@+id/bucketName1"
-                    android:layout_marginBottom="7dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColor"
-                    android:textSize="13dp"
-                    android:text="버킷 설명"
-                    android:id="@+id/bucketEx1"
-                    android:layout_marginBottom="2dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColor"
-                    android:textSize="13dp"
-                    android:text="완료 예정일"
-                    android:id="@+id/bucketDate1"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/star"
-                android:layout_gravity="right|center_vertical"
-                android:id="@+id/star1"
-                android:layout_marginRight="2dp"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/star"
-                android:layout_gravity="right|center_vertical"
-                android:id="@+id/star2"
-                android:layout_marginRight="2dp"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/star"
-                android:layout_gravity="right|center_vertical"
-                android:id="@+id/star3"
-                android:layout_marginRight="2dp"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/star_empty"
-                android:layout_gravity="right|center_vertical"
-                android:id="@+id/star4"
-                android:layout_marginRight="2dp"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/star_empty"
-                android:layout_gravity="right|center_vertical"
-                android:id="@+id/star5"/>
-
-        </LinearLayout>
-        <!-- List1 -->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/editBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40dp"
+            app:elevation="1dp"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/plus"
+            app:backgroundTint="@color/mainColor"
+            app:fabSize="normal" />
 
     </LinearLayout>
 
