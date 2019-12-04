@@ -3,6 +3,7 @@ package com.cookandroid.pocketlist;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,11 +20,31 @@ public class MainActivity extends Activity {
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ListAdapter adapter;
+    LinearLayout mainlayout, navigationView, nvedit, nvcheck, nvbin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mainlayout = (LinearLayout)findViewById(R.id.mainlayout);
+        navigationView = (LinearLayout)findViewById(R.id.navigationView);
+        nvedit = (LinearLayout) findViewById(R.id.nvedit) ;
+        nvcheck = (LinearLayout) findViewById(R.id.nvcheck);
+        nvbin = (LinearLayout) findViewById(R.id.nvbin);
+
+        mainlayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationView.setVisibility(View.GONE);
+            }
+        });
+
+        nvedit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
         /* 리사이클 뷰 */
         recyclerView = findViewById(R.id.recycler);
@@ -41,8 +62,8 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(ListAdapter.ViewHolder holder, View view, int position) {
                 List item = adapter.getItem(position);
-                Toast.makeText(getApplicationContext(), item.getName() + " 선택", Toast.LENGTH_SHORT).show();
 
+                navigationView.setVisibility(View.VISIBLE);
                 // ******************************요기에서 편집/완료/삭제 선택하는거 튀어나오게 하면 됨 ******************************
             }
         });

@@ -17,16 +17,18 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class EditActivity extends Activity {
+
+    LinearLayout biglayout;
 
     static final int REQUEST_CODE = 0;
     ImageView photo;
@@ -45,6 +47,17 @@ public class EditActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
+        biglayout = (LinearLayout)findViewById(R.id.biglayout);
+        biglayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(getCurrentFocus() != null) { // 만약 키패드가 열려있다면
+                    InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                }
+            }
+        });
 
         /* 사진 가져오기 */
         photo = (ImageView) findViewById(R.id.photo);
