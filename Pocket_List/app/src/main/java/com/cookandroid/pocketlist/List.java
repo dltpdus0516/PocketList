@@ -1,19 +1,27 @@
 package com.cookandroid.pocketlist;
 
 public class List {
-    String name, info, date;
+    String picture, name, info, date;
     int star;
 
-    public List(String name, String info, int star, String date) {
+    public List() {}
+    public List(String picture, String name, String info, int star, String date) {
+        this.picture = picture;
         this.name = name;
         this.info = info;
         this.star = star;
         this.date = date;
     }
 
-    public String getName() {
-        return name;
+    public String getPicture() {
+        return picture;
     }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getName() { return name; }
 
     public void setName(String name) {
         this.name = name;

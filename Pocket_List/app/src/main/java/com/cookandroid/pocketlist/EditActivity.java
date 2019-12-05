@@ -10,7 +10,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -28,13 +31,16 @@ import java.util.Locale;
 
 public class EditActivity extends Activity {
 
+    FirebaseDatabase database;
+    DatabaseReference databaseReference;
+
     LinearLayout biglayout;
 
     static final int REQUEST_CODE = 0;
     ImageView photo;
     Button photoDeleteBtn;
 
-    int starCnt = 1; // DB에 넘길 값
+    int starCnt = 1;
     ImageButton star1, star2, star3, star4, star5;
 
     int dateBtnState = 0;
@@ -48,16 +54,12 @@ public class EditActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        biglayout = (LinearLayout)findViewById(R.id.biglayout);
-        biglayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(getCurrentFocus() != null) { // 만약 키패드가 열려있다면
-                    InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                }
-            }
-        });
+        /* database write */
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("List");
+
+        databaseReference.setValue("Hello, World!");
+        /* database write */
 
         /* 사진 가져오기 */
         photo = (ImageView) findViewById(R.id.photo);
@@ -218,6 +220,19 @@ public class EditActivity extends Activity {
                 // DB에 정보 저장
             }
         });
+
+        /* 빈 공간 터치하면 키패드 숨기기 */
+        biglayout = (LinearLayout)findViewById(R.id.biglayout);
+        biglayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(getCurrentFocus() != null) { // 만약 키패드가 열려있다면
+                    InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                }
+            }
+        });
+        /* 빈 공간 터치하면 키패드 숨기기 */
     }
 
 
