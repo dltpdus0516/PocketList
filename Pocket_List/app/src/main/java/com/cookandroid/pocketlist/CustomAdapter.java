@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -43,15 +44,20 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         holder.name.setText(arrayList.get(position).getName());
         holder.info.setText(arrayList.get(position).getInfo());
         holder.date.setText(arrayList.get(position).getDate());
-        for(int i = 1; i <= arrayList.get(position).getStar(); i++) {
-            if (i == 2)
-                holder.star2.setImageResource(R.drawable.star);
-            if (i == 3)
-                holder.star3.setImageResource(R.drawable.star);
-            if (i == 4)
-                holder.star4.setImageResource(R.drawable.star);
-            if (i == 5)
-                holder.star5.setImageResource(R.drawable.star);
+        if(arrayList.get(position).getStar() == 0){
+            holder.stars.setVisibility(View.GONE);
+        }
+        else {
+            for (int i = 1; i <= arrayList.get(position).getStar(); i++) {
+                if (i == 2)
+                    holder.star2.setImageResource(R.drawable.star);
+                if (i == 3)
+                    holder.star3.setImageResource(R.drawable.star);
+                if (i == 4)
+                    holder.star4.setImageResource(R.drawable.star);
+                if (i == 5)
+                    holder.star5.setImageResource(R.drawable.star);
+            }
         }
     }
 
@@ -63,10 +69,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         ImageView picture, star1, star2, star3, star4, star5;
         TextView name, info, date;
+        LinearLayout stars;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            stars = itemView.findViewById(R.id.stars);
             picture = itemView.findViewById(R.id.picture);
             name = itemView.findViewById(R.id.name);
             info = itemView.findViewById(R.id.info);

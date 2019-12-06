@@ -13,6 +13,7 @@ public class List {
         this.date = date;
     }
 
+
     public String getPicture() {
         return picture;
     }

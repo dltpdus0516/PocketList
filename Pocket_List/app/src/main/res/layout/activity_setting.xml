@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:background="#fff">
+    android:background="@color/white">
 
     <!-- ActionBar -->
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/back"
-            android:backgroundTint="#fff"
+            android:backgroundTint="@color/white"
             android:adjustViewBounds="true"
             android:padding="0dp"
             android:layout_marginLeft="20dp"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/spinner"
                 android:spinnerMode="dropdown"
-                android:popupBackground="#fff"
+                android:popupBackground="@color/white"
                 android:dropDownWidth="wrap_content"
                 android:dropDownSelector="@color/mainColor"
                 android:dropDownVerticalOffset="40dp"/>

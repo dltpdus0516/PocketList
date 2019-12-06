@@ -12,4 +12,4 @@
     android:paddingRight="30dp"
     android:paddingTop="20dp"
     android:paddingBottom="20dp"
-    android:background="#fff"/>
+    android:background="@color/white"/>

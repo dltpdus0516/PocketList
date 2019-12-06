@@ -10,7 +10,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/text"
     android:fontFamily="@font/lottedream_light"
-    android:textColor="#fff"
+    android:textColor="@color/white"
     android:padding="20dp"
     android:textSize="15dp"
     android:background="@drawable/toast"/>

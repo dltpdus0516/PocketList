@@ -10,7 +10,6 @@
         android:height="20dp" />
 
     <solid
-        android:color="#FFCECECE" />
-        android:color="@color/ListLineColor" />
+        android:color="@color/LineColor" />
 
 </shape>

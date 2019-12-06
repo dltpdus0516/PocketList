@@ -34,7 +34,7 @@ public class SettingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        /* spinner */
+        /* spinner custom */
         spinner = (Spinner)findViewById(R.id.spinner); //spinner 선언
         spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, spinnerItems);
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
@@ -43,15 +43,29 @@ public class SettingActivity extends Activity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(toastStart != 0) {
+                if(toastStart != 0) { // 맨 처음 layout_setting 페이지를 열었을 때는 toast가 뜨지 않도록 함
                     ToastCustom(spinnerItems[position]);
                 }
                 toastStart = 1;
+
+                // 정렬
+                if(position == 0){
+
+                }
+                else if(position == 1){
+
+                }
+                else if(position == 2){
+
+                }
+                else{
+
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-        /* spinner */
+        /* spinner custom */
 
         /* Switch */
         swShow = (Switch)findViewById(R.id.swShow);
@@ -66,6 +80,7 @@ public class SettingActivity extends Activity {
                 if(swShow.isChecked()){
                     ToastCustom("완료 목록이 표시됩니다.");
                     swShowSave = 0;
+                    // 원하는 결과만 나오도록 하기
                 }
                 else{
                     ToastCustom("완료 목록이 표시되지 않습니다.");
@@ -75,7 +90,7 @@ public class SettingActivity extends Activity {
         });
         /* Switch */
 
-        // 뒤로가기 버튼누르면 MainActivity를 다시 불러옴
+        /* 뒤로가기 버튼누르면 MainActivity를 다시 불러옴 */
         backBtn = (ImageButton)findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,9 +98,10 @@ public class SettingActivity extends Activity {
                 finish();
             }
         });
+        /* 뒤로가기 버튼누르면 MainActivity를 다시 불러옴 */
     }
 
-    /* Toast 커스텀 */
+    /* Toast custom */
     public void ToastCustom(String word){
         LayoutInflater inflater = getLayoutInflater();
 
@@ -100,5 +116,5 @@ public class SettingActivity extends Activity {
         toast.setView(layout);
         toast.show();
     }
-    /* Toast 커스텀 */
+    /* Toast custom */
 }

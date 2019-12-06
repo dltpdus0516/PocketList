@@ -24,10 +24,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    LinearLayout mainlayout, navigationView, nvedit, nvcheck, nvbin;
-    FloatingActionButton editBtn;
-    ImageButton settingBtn;
-    Intent settingIntent, editIntent;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
@@ -35,12 +31,18 @@ public class MainActivity extends Activity {
     FirebaseDatabase database;
     DatabaseReference databaseReference;
 
+    LinearLayout mainlayout, navigationView, nvedit, nvcheck, nvbin;
+
+    FloatingActionButton editBtn;
+    ImageButton settingBtn;
+    Intent settingIntent, editIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* 리사이클 뷰 */
+        /* Recycler View */
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -50,7 +52,8 @@ public class MainActivity extends Activity {
         database = FirebaseDatabase.getInstance(); // 파이어베이스 DB 연결
 
         databaseReference = database.getReference("List");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //database read
+
+        databaseReference.addValueEventListener(new ValueEventListener() { //database read
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // 파이어베이스 DB의 데이터를 받아옴
@@ -71,28 +74,24 @@ public class MainActivity extends Activity {
 
         adapter = new CustomAdapter(arrayList, this);
         recyclerView.setAdapter(adapter); // RecyclerView에 Adapter 연결
-        /* 리사이클 뷰 */
+        /* RecyclerVIew */
 
+        /* RecyclerView에서 한 list를 선택하면 navigationVIew가 보임 */
         mainlayout = (LinearLayout)findViewById(R.id.mainlayout);
         navigationView = (LinearLayout)findViewById(R.id.navigationView);
         nvedit = (LinearLayout) findViewById(R.id.nvedit) ;
         nvcheck = (LinearLayout) findViewById(R.id.nvcheck);
         nvbin = (LinearLayout) findViewById(R.id.nvbin);
 
-        mainlayout.setOnClickListener(new View.OnClickListener() {
+        mainlayout.setOnClickListener(new View.OnClickListener() { // navigationView가 보일 때 배경을 클릭하면 사라짐
             @Override
             public void onClick(View v) {
                 navigationView.setVisibility(View.GONE);
             }
         });
+        /* RecyclerView에서 한 list를 선택하면 navigationVIew가 보임 */
 
-//        nvedit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            }
-//        });
-
-        // 환경설정 버튼 누르면 SettingActivity를 불러옴
+        /* 환경설정 버튼 누르면 SettingActivity를 불러옴 */
         settingBtn = (ImageButton)findViewById(R.id.settingBtn);
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +101,9 @@ public class MainActivity extends Activity {
 
             }
         });
+        /* 환경설정 버튼 누르면 SettingActivity를 불러옴 */
 
+        /* 추가 버튼을 누르면 EditActivity를 불러옴 */
         editBtn = findViewById(R.id.editBtn);
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,5 +113,11 @@ public class MainActivity extends Activity {
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_not);
             }
         });
+        /* 추가 버튼을 누르면 EditActivity를 불러옴 */
+    }
+
+    protected  void onStart() {
+        super.onStart();
+        // DB 다시 불러오기
     }
 }
