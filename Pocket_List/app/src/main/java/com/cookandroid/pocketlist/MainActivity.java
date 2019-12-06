@@ -115,9 +115,4 @@ public class MainActivity extends Activity {
         });
         /* 추가 버튼을 누르면 EditActivity를 불러옴 */
     }
-
-    protected  void onStart() {
-        super.onStart();
-        // DB 다시 불러오기
-    }
 }

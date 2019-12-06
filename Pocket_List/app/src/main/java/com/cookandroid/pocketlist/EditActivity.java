@@ -3,7 +3,9 @@ package com.cookandroid.pocketlist;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -22,11 +25,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -37,16 +40,16 @@ public class EditActivity extends Activity {
     FirebaseDatabase database;
     DatabaseReference databaseReference;
     EditText name, info;
-    int nameOK; // name에 입력된 text가 있는지 확인
     int listCnt; // List의 하위에 있는 list 개수를 구하여 +1을 해줌. 새로 생성할 child의 이름에 넣어주면 child의 이름이 순서대로 생성됨. (ex. List01, List02 ...)
     String slistCnt; // listCnt의 값을 string으로 변환하여 저장 (만약 10이하면 0을 붙여줌)
     String picturePath;
     int pictureId = 0;
 
-    LinearLayout biglayout;
+    ConstraintLayout biglayout;
 
     ImageView photo;
     Button photoDeleteBtn;
+    Intent pictureIntent;
 
     int starCnt = 1;
     ImageButton star1, star2, star3, star4, star5;
@@ -56,6 +59,7 @@ public class EditActivity extends Activity {
     ImageButton  dateBtn;
     DatePickerDialog datePickerDialog;
     FloatingActionButton cancelBtn, saveBtn;
+    Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +104,8 @@ public class EditActivity extends Activity {
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // layout 띄움
+                pictureIntent = new Intent(EditActivity.this, PictureActivity.class);
+                startActivityForResult(pictureIntent, 0);
             }
         });
 
@@ -241,59 +246,60 @@ public class EditActivity extends Activity {
         saveBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                nameOK = 0;
                 // 필수 입력 정보를 입력했는지 학인 (버킷명)
-                if(name.getText().toString().length() == 0){
+                if(name.getText().toString().trim().length() == 0){
+                    vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(200);
+
                     showMessage(2, "실패", "버킷명을 입력해주세요.");
-                    nameOK = 1;
-                }
+                }else {
+                    // 사진 링크 설정
+                    switch (pictureId) {
+                        case 1:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration01.png?alt=media&token=29e2c993-126c-4142-b644-fdda5ef14dad";
+                            break;
+                        case 2:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration02.jpg?alt=media&token=8c384fb1-2d44-40e4-9047-47b8a725f225";
+                            break;
+                        case 3:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration03.jpg?alt=media&token=d393c401-8cea-4bb3-ae74-17dc47e41ba4";
+                            break;
+                        case 4:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration04.png?alt=media&token=bccd416a-c882-4480-a734-f3b7369ff29f";
+                            break;
+                        case 5:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration05.png?alt=media&token=5f467d3d-f915-421d-ac95-480173b783af";
+                            break;
+                        case 6:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration06.jpg?alt=media&token=75ade0a1-90dd-4e40-af74-ff559814df97";
+                            break;
+                        case 7:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration07.png?alt=media&token=11b15314-9128-4915-9096-b2ad82f63f6c";
+                            break;
+                        case 8:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration08.png?alt=media&token=2b62c223-d58a-402e-aaa0-a5004c5d8318";
+                            break;
+                        case 9:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration09.png?alt=media&token=dfad3dbd-7e40-4609-b82e-e733a617fbc5";
+                            break;
+                        case 10:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration10.png?alt=media&token=13eeee13-edfe-4429-8366-b96f174e0a01";
+                            break;
+                        case 11:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration11.png?alt=media&token=f7de5920-90ad-4229-bc84-eae065c6a981";
+                            break;
+                        case 12:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration12.png?alt=media&token=6cacce0c-7be0-472b-89ce-e594302bea17";
+                            break;
+                        default:
+                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/picture.png?alt=media&token=26e88589-ae64-4148-be89-e02f007fdb57";
+                            break;
+                    }
 
-                switch (pictureId){
-                    case 1:
-                        picturePath = "";
-                        break;
-                    case 2:
-                        picturePath = "";
-                        break;
-                    case 3:
-                        picturePath = "";
-                        break;
-                    case 4:
-                        picturePath = "";
-                        break;
-                    case 5:
-                        picturePath = "";
-                        break;
-                    case 6:
-                        picturePath = "";
-                        break;
-                    case 7:
-                        picturePath = "";
-                        break;
-                    case 8:
-                        picturePath = "";
-                        break;
-                    case 9:
-                        picturePath = "";
-                        break;
-                    case 10:
-                        picturePath = "";
-                        break;
-                    case 11:
-                        picturePath = "";
-                        break;
-                    case 12:
-                        picturePath = "";
-                        break;
-                    default:
-                        picturePath = ""; // 기본 사진
-                        break;
-                }
+                    //.trim() 좌우 공백 문자 제거
+                    List list = new List(picturePath, name.getText().toString().trim(), info.getText().toString().trim(), starCnt, date.getText().toString().trim());
+                    databaseReference.child("List" + slistCnt).setValue(list);
 
-                List list = new List(picturePath, name.getText().toString(), info.getText().toString(), starCnt, date.getText().toString());
-                databaseReference.child("List" + slistCnt).setValue(list);
-
-                if(nameOK != 1){
                     finish();
                     overridePendingTransition(R.anim.slide_not, R.anim.slide_up);
                 }
@@ -301,7 +307,7 @@ public class EditActivity extends Activity {
         });
 
         /* 빈 공간 터치하면 키패드 숨기기 */
-        biglayout = (LinearLayout)findViewById(R.id.biglayout);
+        biglayout = (ConstraintLayout)findViewById(R.id.biglayout);
         biglayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -321,7 +327,7 @@ public class EditActivity extends Activity {
         builder.setIcon(R.drawable.danger);
 
         if (id == 1) {
-            builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
@@ -329,14 +335,14 @@ public class EditActivity extends Activity {
                 }
             });
 
-            builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                 }
             });
         }
         else if (id == 2){
-            builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                 }
@@ -345,5 +351,55 @@ public class EditActivity extends Activity {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) { //데이터 받기
+
+        if(requestCode == 0){
+            if(resultCode == RESULT_OK){
+                int result = data.getIntExtra("intData", 1);
+                pictureId = result;
+
+                switch (pictureId){
+                    case 1:
+                        photo.setImageResource(R.drawable.illustration01);
+                        break;
+                    case 2:
+                        photo.setImageResource(R.drawable.illustration02);
+                        break;
+                    case 3:
+                        photo.setImageResource(R.drawable.illustration03);
+                        break;
+                    case 4:
+                        photo.setImageResource(R.drawable.illustration04);
+                        break;
+                    case 5:
+                        photo.setImageResource(R.drawable.illustration05);
+                        break;
+                    case 6:
+                        photo.setImageResource(R.drawable.illustration06);
+                        break;
+                    case 7:
+                        photo.setImageResource(R.drawable.illustration07);
+                        break;
+                    case 8:
+                        photo.setImageResource(R.drawable.illustration08);
+                        break;
+                    case 9:
+                        photo.setImageResource(R.drawable.illustration09);
+                        break;
+                    case 10:
+                        photo.setImageResource(R.drawable.illustration10);
+                        break;
+                    case 11:
+                        photo.setImageResource(R.drawable.illustration11);
+                        break;
+                    case 12:
+                        photo.setImageResource(R.drawable.illustration12);
+                        break;
+                }
+            }
+        }
     }
 }

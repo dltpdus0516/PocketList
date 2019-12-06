@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cookandroid.pocketlist">
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".EditActivity"/>
         <activity android:name=".SettingActivity"/>
+        <activity android:name=".PictureActivity" android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>
