@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     private ArrayList<List> arrayList;
     private Context context;
+//    private final OnClickListener listener = new OnClickListener(); // 리스너 객체 참조를 저장하는 변수
 
     public CustomAdapter(ArrayList<List> arrayList, Context context) {
         this.arrayList = arrayList;
@@ -29,6 +31,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item, parent, false);
+//        view.setOnClickListener(listener);
         CustomViewHolder holder = new CustomViewHolder(view);
 
         return holder;
@@ -84,6 +87,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             star3 = itemView.findViewById(R.id.star3);
             star4 = itemView.findViewById(R.id.star4);
             star5 = itemView.findViewById(R.id.star5);
+
+            // 아이템 클릭 이벤트 처리.
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    int pos = getAdapterPosition() ;
+//                    if (pos != RecyclerView.NO_POSITION && listener != null) {
+//                        listener.onItemClick(getSnapshot(pos), pos);
+//                    }
+                }
+            });
         }
     }
+//
+//    public interface OnItemClickListener {
+//        void onItemClick(DataSnapshot dataSnapshot, int position) ;
+//    }
+//
+//    public void setOnItemClickListener(OnItemClickListener listener){ // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
+//        this.listener = listener;
+//    }
 }

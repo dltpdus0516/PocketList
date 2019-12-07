@@ -24,12 +24,17 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
+    FirebaseDatabase database;
+    DatabaseReference databaseReference1, databaseReference2;
+
+    int sort = 0;
+    int showCompl = 0;
+    String orderby = "name";
+
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
     ArrayList<List> arrayList;
-    FirebaseDatabase database;
-    DatabaseReference databaseReference;
 
     LinearLayout mainlayout, navigationView, nvedit, nvcheck, nvbin;
 
@@ -42,6 +47,31 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* DB에 저장되어 있는 setting 값 가져오기 */
+        database = FirebaseDatabase.getInstance(); // 파이어베이스 DB 연결
+        databaseReference1 = database.getReference("Setting");
+
+        databaseReference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Setting setting = dataSnapshot.getValue(Setting.class);
+                sort = setting.getSort();
+                showCompl = setting.getShowCompl();
+
+                if(sort == 0){
+                    orderby = "name";
+                }
+                else{
+                    orderby = "star";
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        /* DB에 저장되어 있는 setting 값 가져오기 */
+
         /* Recycler View */
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
@@ -49,15 +79,13 @@ public class MainActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>(); // User 객체를 담을 ArrayList (Adapter 쪽으로)
 
-        database = FirebaseDatabase.getInstance(); // 파이어베이스 DB 연결
-
-        databaseReference = database.getReference("List");
-
-        databaseReference.addValueEventListener(new ValueEventListener() { //database read
+        databaseReference2 = database.getReference("List");
+        databaseReference2.orderByChild(orderby).addValueEventListener(new ValueEventListener() { //database read
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // 파이어베이스 DB의 데이터를 받아옴
                 arrayList.clear(); //초기화
+
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){ // 반복문으로 데이터 List를 추출해냄
                     List list = snapshot.getValue(List.class); // 만들어뒀던 List 객체에 데이터를 담는다.
                     arrayList.add(list); // 담은 데이터들을 arrayList에 넣고 RecyclerView로 보낼 준비

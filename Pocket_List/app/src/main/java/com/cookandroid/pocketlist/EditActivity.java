@@ -44,6 +44,7 @@ public class EditActivity extends Activity {
     String slistCnt; // listCnt의 값을 string으로 변환하여 저장 (만약 10이하면 0을 붙여줌)
     String picturePath;
     int pictureId = 0;
+    int colorCnt = 0;
 
     ConstraintLayout biglayout;
 
@@ -73,25 +74,25 @@ public class EditActivity extends Activity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("List");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listCnt = (int)dataSnapshot.getChildrenCount() + 1; // 현재 데이터베이스에 있는 데이터 개수 (List의 child 개수) + 1
-
-                if(listCnt < 10){
-                    slistCnt = "0" + String.valueOf(listCnt);
-                }
-                else{
-                    slistCnt = String.valueOf(listCnt);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // DB를 가져오다 에러 발생시
-                Log.e("EditActivity", String.valueOf(databaseError.toException())); // 에러문 출력
-            }
-        });
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                listCnt = (int)dataSnapshot.getChildrenCount() + 1; // 현재 데이터베이스에 있는 데이터 개수 (List의 child 개수) + 1
+//
+//                if(listCnt < 10){
+//                    slistCnt = "0" + String.valueOf(listCnt);
+//                }
+//                else{
+//                    slistCnt = String.valueOf(listCnt);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                // DB를 가져오다 에러 발생시
+//                Log.e("EditActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+//            }
+//        });
         /* database write */
 
         /* 사진 가져오기 */
@@ -292,13 +293,42 @@ public class EditActivity extends Activity {
                             picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/illustration12.png?alt=media&token=6cacce0c-7be0-472b-89ce-e594302bea17";
                             break;
                         default:
-                            picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/picture.png?alt=media&token=26e88589-ae64-4148-be89-e02f007fdb57";
+                            // 사진을 선택하지 않으면 6가지 색상 배경을 Defalut 사진으로 지정해줌
+                            colorCnt++;
+                            if(colorCnt % 6 == 0){
+                                picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/color01.png?alt=media&token=3df661bc-7e40-434c-ba10-f98a81e924a6";
+                            }
+                            else if(colorCnt % 6 == 1){
+                                picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/color02.png?alt=media&token=1eba79ad-da84-44e9-af65-e3c56392b2d8";
+                            }
+                            else if(colorCnt % 6 == 2){
+                                picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/color03.png?alt=media&token=aab4f0c8-8a8a-4728-b5a5-a53b0ef803eb";
+                            }
+                            else if(colorCnt % 6 == 3){
+                                picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/color04.png?alt=media&token=7906a458-33d2-4fa1-99ca-1326a61a2322";
+                            }
+                            else if(colorCnt % 6 == 4){
+                                picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/color05.png?alt=media&token=1793ccf6-e38b-43ab-863a-39fac48be8e4";
+                            }
+                            else{
+                                picturePath = "https://firebasestorage.googleapis.com/v0/b/pocket-list-52f18.appspot.com/o/color06.png?alt=media&token=fc0642e7-edf5-4087-9817-f4d9aa834ba3";
+                            }
+
                             break;
+                    }
+
+                    if(listCnt < 10){
+                        slistCnt = "0" + String.valueOf(listCnt);
+                    }
+                    else{
+                        slistCnt = String.valueOf(listCnt);
                     }
 
                     //.trim() 좌우 공백 문자 제거
                     List list = new List(picturePath, name.getText().toString().trim(), info.getText().toString().trim(), starCnt, date.getText().toString().trim());
                     databaseReference.child("List" + slistCnt).setValue(list);
+
+                    listCnt++;
 
                     finish();
                     overridePendingTransition(R.anim.slide_not, R.anim.slide_up);

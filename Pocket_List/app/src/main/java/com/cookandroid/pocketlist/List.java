@@ -22,7 +22,9 @@ public class List {
         this.picture = picture;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;
