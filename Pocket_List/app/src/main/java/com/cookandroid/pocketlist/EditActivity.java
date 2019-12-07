@@ -10,14 +10,10 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -26,9 +22,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.Calendar;
@@ -317,15 +310,8 @@ public class EditActivity extends Activity {
                             break;
                     }
 
-                    if(listCnt < 10){
-                        slistCnt = "0" + String.valueOf(listCnt);
-                    }
-                    else{
-                        slistCnt = String.valueOf(listCnt);
-                    }
-
                     //.trim() 좌우 공백 문자 제거
-                    List list = new List(picturePath, name.getText().toString().trim(), info.getText().toString().trim(), starCnt, date.getText().toString().trim());
+                    List list = new List(picturePath, name.getText().toString().trim(), info.getText().toString().trim(), starCnt, date.getText().toString().trim(), 0);
                     databaseReference.child("List" + slistCnt).setValue(list);
 
                     listCnt++;

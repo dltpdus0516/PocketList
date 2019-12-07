@@ -2,15 +2,16 @@ package com.cookandroid.pocketlist;
 
 public class List {
     String picture, name, info, date;
-    int star;
+    int star, complete;
 
     public List() {}
-    public List(String picture, String name, String info, int star, String date) {
+    public List(String picture, String name, String info, int star, String date, int complete) {
         this.picture = picture;
         this.name = name;
         this.info = info;
         this.star = star;
         this.date = date;
+        this.complete = complete;
     }
 
 
@@ -52,5 +53,13 @@ public class List {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getComplete() {
+        return complete;
+    }
+
+    public void setComplete(int complete) {
+        this.complete = complete;
     }
 }

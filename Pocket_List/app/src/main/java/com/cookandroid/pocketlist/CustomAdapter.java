@@ -3,6 +3,8 @@ package com.cookandroid.pocketlist;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,19 +22,19 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     private ArrayList<List> arrayList;
     private Context context;
-//    private final OnClickListener listener = new OnClickListener(); // 리스너 객체 참조를 저장하는 변수
+    private  OnListListener mOnListListener;
 
-    public CustomAdapter(ArrayList<List> arrayList, Context context) {
+    public CustomAdapter(ArrayList<List> arrayList, Context context, OnListListener onListListener) {
         this.arrayList = arrayList;
         this.context = context;
+        this.mOnListListener = onListListener;
     }
 
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item, parent, false);
-//        view.setOnClickListener(listener);
-        CustomViewHolder holder = new CustomViewHolder(view);
+        CustomViewHolder holder = new CustomViewHolder(view, mOnListListener);
 
         return holder;
     }
@@ -47,17 +49,33 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         holder.name.setText(arrayList.get(position).getName());
         holder.info.setText(arrayList.get(position).getInfo());
         holder.date.setText(arrayList.get(position).getDate());
-        if(arrayList.get(position).getStar() == 0){
+        if(arrayList.get(position).getComplete() == 1){
             holder.stars.setVisibility(View.GONE);
+            holder.completes.setVisibility(View.VISIBLE);
         }
         else {
             for (int i = 1; i <= arrayList.get(position).getStar(); i++) {
-                if (i == 2)
+                if(i == 1){
+                    holder.star2.setImageResource(R.drawable.star_empty);
+                    holder.star3.setImageResource(R.drawable.star_empty);
+                    holder.star4.setImageResource(R.drawable.star_empty);
+                    holder.star5.setImageResource(R.drawable.star_empty);
+                }
+                if (i == 2) {
                     holder.star2.setImageResource(R.drawable.star);
-                if (i == 3)
+                    holder.star3.setImageResource(R.drawable.star_empty);
+                    holder.star4.setImageResource(R.drawable.star_empty);
+                    holder.star5.setImageResource(R.drawable.star_empty);
+                }
+                if (i == 3) {
                     holder.star3.setImageResource(R.drawable.star);
-                if (i == 4)
+                    holder.star4.setImageResource(R.drawable.star_empty);
+                    holder.star5.setImageResource(R.drawable.star_empty);
+                }
+                if (i == 4) {
                     holder.star4.setImageResource(R.drawable.star);
+                    holder.star5.setImageResource(R.drawable.star_empty);
+                }
                 if (i == 5)
                     holder.star5.setImageResource(R.drawable.star);
             }
@@ -69,15 +87,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         return (arrayList != null ? arrayList.size() : 0);
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+    public class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView picture, star1, star2, star3, star4, star5;
         TextView name, info, date;
-        LinearLayout stars;
+        LinearLayout stars, completes;
+        OnListListener onListListener;
 
-        public CustomViewHolder(@NonNull View itemView) {
+        public CustomViewHolder(@NonNull View itemView,OnListListener onListListener) {
             super(itemView);
 
             stars = itemView.findViewById(R.id.stars);
+            completes = itemView.findViewById(R.id.completes);
             picture = itemView.findViewById(R.id.picture);
             name = itemView.findViewById(R.id.name);
             info = itemView.findViewById(R.id.info);
@@ -87,25 +107,20 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             star3 = itemView.findViewById(R.id.star3);
             star4 = itemView.findViewById(R.id.star4);
             star5 = itemView.findViewById(R.id.star5);
+            this.onListListener = onListListener;
 
             // 아이템 클릭 이벤트 처리.
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    int pos = getAdapterPosition() ;
-//                    if (pos != RecyclerView.NO_POSITION && listener != null) {
-//                        listener.onItemClick(getSnapshot(pos), pos);
-//                    }
-                }
-            });
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onListListener.onListClick(getAdapterPosition());
         }
     }
-//
-//    public interface OnItemClickListener {
-//        void onItemClick(DataSnapshot dataSnapshot, int position) ;
-//    }
-//
-//    public void setOnItemClickListener(OnItemClickListener listener){ // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
-//        this.listener = listener;
-//    }
+
+    public interface OnListListener {
+        void onListClick(int position) ;
+    }
+
 }

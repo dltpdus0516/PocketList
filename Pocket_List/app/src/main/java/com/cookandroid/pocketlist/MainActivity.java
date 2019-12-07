@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,14 +22,17 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements CustomAdapter.OnListListener {
 
     FirebaseDatabase database;
     DatabaseReference databaseReference1, databaseReference2;
 
     int sort = 0;
     int showCompl = 0;
+    int complete = 0;
     String orderby = "name";
 
     RecyclerView recyclerView;
@@ -36,7 +40,8 @@ public class MainActivity extends Activity {
     RecyclerView.Adapter adapter;
     ArrayList<List> arrayList;
 
-    LinearLayout mainlayout, navigationView, nvedit, nvcheck, nvbin;
+    LinearLayout navigationView, nvedit, nvcheck, nvbin, stars, completes;
+    FloatingActionButton closeBtn;
 
     FloatingActionButton editBtn;
     ImageButton settingBtn;
@@ -100,24 +105,9 @@ public class MainActivity extends Activity {
             }
         });
 
-        adapter = new CustomAdapter(arrayList, this);
+        adapter = new CustomAdapter(arrayList, this, this);
         recyclerView.setAdapter(adapter); // RecyclerView에 Adapter 연결
         /* RecyclerVIew */
-
-        /* RecyclerView에서 한 list를 선택하면 navigationVIew가 보임 */
-        mainlayout = (LinearLayout)findViewById(R.id.mainlayout);
-        navigationView = (LinearLayout)findViewById(R.id.navigationView);
-        nvedit = (LinearLayout) findViewById(R.id.nvedit) ;
-        nvcheck = (LinearLayout) findViewById(R.id.nvcheck);
-        nvbin = (LinearLayout) findViewById(R.id.nvbin);
-
-        mainlayout.setOnClickListener(new View.OnClickListener() { // navigationView가 보일 때 배경을 클릭하면 사라짐
-            @Override
-            public void onClick(View v) {
-                navigationView.setVisibility(View.GONE);
-            }
-        });
-        /* RecyclerView에서 한 list를 선택하면 navigationVIew가 보임 */
 
         /* 환경설정 버튼 누르면 SettingActivity를 불러옴 */
         settingBtn = (ImageButton)findViewById(R.id.settingBtn);
@@ -126,7 +116,6 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 settingIntent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(settingIntent);
-
             }
         });
         /* 환경설정 버튼 누르면 SettingActivity를 불러옴 */
@@ -142,5 +131,52 @@ public class MainActivity extends Activity {
             }
         });
         /* 추가 버튼을 누르면 EditActivity를 불러옴 */
+    }
+
+    @Override
+    public void onListClick(final int position) {
+        closeBtn = (FloatingActionButton)findViewById(R.id.closeBtn);
+        navigationView = (LinearLayout)findViewById(R.id.navigationView);
+        nvedit = (LinearLayout) findViewById(R.id.nvedit) ;
+        nvcheck = (LinearLayout) findViewById(R.id.nvcheck);
+        nvbin = (LinearLayout) findViewById(R.id.nvbin);
+
+        closeBtn.setVisibility(View.VISIBLE);
+        navigationView.setVisibility(View.VISIBLE);
+        editBtn.setVisibility(View.GONE);
+
+        nvedit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        nvcheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String, Object> hopperUpdates = new HashMap<>();
+                hopperUpdates.put("sort", sort);
+
+                //databaseReference2.child("List" + String.valueOf(arrayList.get(position))).updateChildren(hopperUpdates);
+            }
+        });
+
+        nvbin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeBtn.setVisibility(View.GONE);
+                navigationView.setVisibility(View.GONE);
+                editBtn.setVisibility(View.VISIBLE);
+            }
+        });
     }
 }
