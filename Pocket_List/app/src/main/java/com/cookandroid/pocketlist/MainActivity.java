@@ -132,6 +132,7 @@ public class MainActivity extends Activity implements CustomAdapter.OnListListen
             @Override
             public void onClick(View view) {
                 editIntent = new Intent(MainActivity.this, EditActivity.class);
+                editIntent.putExtra("edit", 0);
                 startActivity(editIntent);
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_not);
             }
@@ -151,10 +152,14 @@ public class MainActivity extends Activity implements CustomAdapter.OnListListen
         navigationView.setVisibility(View.VISIBLE);
         editBtn.setVisibility(View.GONE);
 
+        num = arrayList.get(position).getNum();
+
         nvedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // 편집
                 Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                intent.putExtra("edit", 1);
+                intent.putExtra("position", num);
                 startActivity(intent);
             }
         });
@@ -165,8 +170,6 @@ public class MainActivity extends Activity implements CustomAdapter.OnListListen
                 Map<String, Object> hopperUpdates = new HashMap<>();
                 hopperUpdates.put("complete", 1);
 
-                num = arrayList.get(position).getNum();
-
                 databaseReference.child("List").child("List" + String.valueOf(num)).updateChildren(hopperUpdates);
             }
         });
@@ -174,8 +177,6 @@ public class MainActivity extends Activity implements CustomAdapter.OnListListen
         nvbin.setOnClickListener(new View.OnClickListener() { // 삭제
             @Override
             public void onClick(View v) {
-                num = arrayList.get(position).getNum();
-
                 databaseReference.child("List").child("List" + String.valueOf(num)).removeValue();
             }
         });
