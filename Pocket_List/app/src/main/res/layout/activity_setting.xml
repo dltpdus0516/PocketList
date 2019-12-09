@@ -86,7 +86,7 @@
                 android:popupBackground="@color/white"
                 android:dropDownWidth="wrap_content"
                 android:dropDownSelector="@color/mainColor"
-                android:dropDownVerticalOffset="40dp"/>
+                android:dropDownVerticalOffset="50dp"/>
 
         </LinearLayout>
         <!-- 정렬 -->
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/textColor"
                 android:textSize="20dp"
-                android:text="Github"
+                android:text="Github        https://github.com/honghayeon/Pocket_List"
                 android:fontFamily="@font/lottedream_light"/>
 
         </LinearLayout>

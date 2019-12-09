@@ -32,7 +32,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class EditActivity extends Activity {
 
@@ -132,6 +134,9 @@ public class EditActivity extends Activity {
                             star5.setImageResource(R.drawable.star);
                     }
                     date.setText(listBackUp.getDate());
+
+                    pictureId = listBackUp.getPictureid();
+                    PictureSet(pictureId);
                 }
 
                 @Override
@@ -303,8 +308,8 @@ public class EditActivity extends Activity {
                     showMessage(2, "실패", "버킷명을 입력해주세요.");
                 } else {
                     // 사진 링크 설정
-                    if (1 <= pictureId || pictureId <= 12) {
-                        picturePath = picturePaths[pictureId];
+                    if (1 <= pictureId && pictureId <= 12) {
+                        picturePath = picturePaths[pictureId - 1];
                     } else { // 사진을 선택하지 않으면 6가지 색상 배경을 Defalut 사진으로 지정해줌
                         picturePath = colorPaths[colorCnt];
 
@@ -314,11 +319,24 @@ public class EditActivity extends Activity {
                         databaseReference.child("colorCnt").setValue(colorCnt);
                     }
 
-                    //.trim() 좌우 공백 문자 제거
-                    List list = new List(pictureId, picturePath, name.getText().toString().trim(), info.getText().toString().trim(), starCnt, date.getText().toString().trim(), 0, listCnt);
-                    databaseReference.child("List").child("List" + listCnt).setValue(list);
+                    if(edit == 0){
+                        //.trim() 좌우 공백 문자 제거
+                        List list = new List(pictureId, picturePath, name.getText().toString().trim(), info.getText().toString().trim(), starCnt, date.getText().toString().trim(), 0, listCnt);
+                        databaseReference.child("List").child("List" + listCnt).setValue(list);
 
-                    databaseReference.child("listCnt").setValue(listCnt);
+                        databaseReference.child("listCnt").setValue(listCnt);
+                    }
+                    else{
+                        Map<String, Object> hopperUpdates = new HashMap<>();
+                        hopperUpdates.put("pictureid", pictureId);
+                        hopperUpdates.put("picture", picturePath);
+                        hopperUpdates.put("name", name.getText().toString().trim());
+                        hopperUpdates.put("info", info.getText().toString().trim());
+                        hopperUpdates.put("star", starCnt);
+                        hopperUpdates.put("date", date.getText().toString().trim());
+
+                        databaseReference.child("List").child("List" + String.valueOf(position)).updateChildren(hopperUpdates);
+                    }
 
                     finish();
                     overridePendingTransition(R.anim.slide_not, R.anim.slide_up);
@@ -380,45 +398,49 @@ public class EditActivity extends Activity {
                 int result = data.getIntExtra("intData", 1);
                 pictureId = result;
 
-                switch (pictureId) {
-                    case 1:
-                        photo.setImageResource(R.drawable.illustration01);
-                        break;
-                    case 2:
-                        photo.setImageResource(R.drawable.illustration02);
-                        break;
-                    case 3:
-                        photo.setImageResource(R.drawable.illustration03);
-                        break;
-                    case 4:
-                        photo.setImageResource(R.drawable.illustration04);
-                        break;
-                    case 5:
-                        photo.setImageResource(R.drawable.illustration05);
-                        break;
-                    case 6:
-                        photo.setImageResource(R.drawable.illustration06);
-                        break;
-                    case 7:
-                        photo.setImageResource(R.drawable.illustration07);
-                        break;
-                    case 8:
-                        photo.setImageResource(R.drawable.illustration08);
-                        break;
-                    case 9:
-                        photo.setImageResource(R.drawable.illustration09);
-                        break;
-                    case 10:
-                        photo.setImageResource(R.drawable.illustration10);
-                        break;
-                    case 11:
-                        photo.setImageResource(R.drawable.illustration11);
-                        break;
-                    case 12:
-                        photo.setImageResource(R.drawable.illustration12);
-                        break;
-                }
+                PictureSet(pictureId);
             }
+        }
+    }
+
+    private void PictureSet(int pictureId) {
+        switch (pictureId) {
+            case 1:
+                photo.setImageResource(R.drawable.illustration01);
+                break;
+            case 2:
+                photo.setImageResource(R.drawable.illustration02);
+                break;
+            case 3:
+                photo.setImageResource(R.drawable.illustration03);
+                break;
+            case 4:
+                photo.setImageResource(R.drawable.illustration04);
+                break;
+            case 5:
+                photo.setImageResource(R.drawable.illustration05);
+                break;
+            case 6:
+                photo.setImageResource(R.drawable.illustration06);
+                break;
+            case 7:
+                photo.setImageResource(R.drawable.illustration07);
+                break;
+            case 8:
+                photo.setImageResource(R.drawable.illustration08);
+                break;
+            case 9:
+                photo.setImageResource(R.drawable.illustration09);
+                break;
+            case 10:
+                photo.setImageResource(R.drawable.illustration10);
+                break;
+            case 11:
+                photo.setImageResource(R.drawable.illustration11);
+                break;
+            case 12:
+                photo.setImageResource(R.drawable.illustration12);
+                break;
         }
     }
 }
