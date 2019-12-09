@@ -1,8 +1,7 @@
 package com.cookandroid.pocketlist;
 
 public class Setting {
-    int sort;
-    int showCompl;
+    int sort, showCompl;
 
     public Setting(){}
     public Setting(int sort, int showCompl){

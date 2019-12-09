@@ -61,29 +61,27 @@ public class SettingActivity extends Activity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("Setting");
 
-        databaseReference.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Setting setting = dataSnapshot.getValue(Setting.class);
-                        sort = setting.getSort();
-                        showCompl = setting.getShowCompl();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Setting setting = dataSnapshot.getValue(Setting.class);
+                sort = setting.getSort();
+                showCompl = setting.getShowCompl();
 
-                        spinner.setSelection(sort);
+                spinner.setSelection(sort);
 
-                        if(showCompl == 1){ // 이전에 설정해놨던 값을 가져와 on/off를 설정함
-                            swShow.setChecked(true);
-                        }
-                        else{
-                            swShow.setChecked(false);
-                        }
+                if(showCompl == 1){ // 이전에 설정해놨던 값을 가져와 on/off를 설정함
+                    swShow.setChecked(true);
+                }
+                else{
+                    swShow.setChecked(false);
+                }
+            }
 
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
         /* DB에 저장되어 있는 setting 값 가져오기 */
 
         /* Spinner*/
@@ -109,11 +107,11 @@ public class SettingActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(swShow.isChecked()){
-                    if(toastStart != 0) { // 맨 처음 layout_setting 페이지를 열었을 때는 toast가 뜨지 않도록 함
-                        ToastCustom("완료 목록이 표시됩니다.");
-                    }
+                        if(toastStart != 0) { // 맨 처음 layout_setting 페이지를 열었을 때는 toast가 뜨지 않도록 함
+                            ToastCustom("완료 목록이 표시됩니다.");
+                        }
 
-                    showCompl = 1;
+                        showCompl = 1;
                 }
                 else{
                     if(toastStart != 0) { // 맨 처음 layout_setting 페이지를 열었을 때는 toast가 뜨지 않도록 함

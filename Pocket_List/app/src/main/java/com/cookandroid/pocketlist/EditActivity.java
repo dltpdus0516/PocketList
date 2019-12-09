@@ -10,10 +10,14 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -22,6 +26,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.Calendar;
@@ -33,8 +39,7 @@ public class EditActivity extends Activity {
     FirebaseDatabase database;
     DatabaseReference databaseReference;
     EditText name, info;
-    int listCnt; // List의 하위에 있는 list 개수를 구하여 +1을 해줌. 새로 생성할 child의 이름에 넣어주면 child의 이름이 순서대로 생성됨. (ex. List01, List02 ...)
-    String slistCnt; // listCnt의 값을 string으로 변환하여 저장 (만약 10이하면 0을 붙여줌)
+    int listCnt; // List의 하위에 있는 list 개수를 구하여 +1을 해줌. 새로 생성할 child의 이름에 넣어주면 child의 이름이 순서대로 생성됨. (ex. List1, List2 ...)
     String picturePath;
     int pictureId = 0;
     int colorCnt = 0;
@@ -65,27 +70,18 @@ public class EditActivity extends Activity {
 
         /* database write */
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("List");
+        databaseReference = database.getReference();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listCnt = dataSnapshot.getValue(ListCnt.class).getListCnt() + 1;
+            }
 
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                listCnt = (int)dataSnapshot.getChildrenCount() + 1; // 현재 데이터베이스에 있는 데이터 개수 (List의 child 개수) + 1
-//
-//                if(listCnt < 10){
-//                    slistCnt = "0" + String.valueOf(listCnt);
-//                }
-//                else{
-//                    slistCnt = String.valueOf(listCnt);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                // DB를 가져오다 에러 발생시
-//                Log.e("EditActivity", String.valueOf(databaseError.toException())); // 에러문 출력
-//            }
-//        });
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         /* database write */
 
         /* 사진 가져오기 */
@@ -210,7 +206,7 @@ public class EditActivity extends Activity {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                             dateBtnState = 1;
-                            date.setText(year + "년 " + monthOfYear + "월 " + dayOfMonth + "일");
+                            date.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
                             dateBtn.setRotation(45);
                         }
                     },year, monthOfYear, dayOfMonth); // 기본 날짜를 오늘로 설정해줌
@@ -311,10 +307,10 @@ public class EditActivity extends Activity {
                     }
 
                     //.trim() 좌우 공백 문자 제거
-                    List list = new List(picturePath, name.getText().toString().trim(), info.getText().toString().trim(), starCnt, date.getText().toString().trim(), 0);
-                    databaseReference.child("List" + slistCnt).setValue(list);
+                    List list = new List(picturePath, name.getText().toString().trim(), info.getText().toString().trim(), starCnt, date.getText().toString().trim(), 0, listCnt);
+                    databaseReference.child("List").child("List" + listCnt).setValue(list);
 
-                    listCnt++;
+                    databaseReference.child("listCnt").setValue(listCnt);
 
                     finish();
                     overridePendingTransition(R.anim.slide_not, R.anim.slide_up);

@@ -54,6 +54,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             holder.completes.setVisibility(View.VISIBLE);
         }
         else {
+            holder.stars.setVisibility(View.VISIBLE);
+            holder.completes.setVisibility(View.GONE);
             for (int i = 1; i <= arrayList.get(position).getStar(); i++) {
                 if(i == 1){
                     holder.star2.setImageResource(R.drawable.star_empty);
