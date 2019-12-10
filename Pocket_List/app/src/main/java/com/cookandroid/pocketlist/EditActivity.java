@@ -123,7 +123,8 @@ public class EditActivity extends Activity {
 
                     name.setText(listBackUp.getName());
                     info.setText(listBackUp.getInfo());
-                    for (int i = 1; i < listBackUp.getStar(); i++) {
+                    starCnt = listBackUp.getStar();
+                    for (int i = 1; i <= starCnt; i++) {
                         if (i == 2)
                             star2.setImageResource(R.drawable.star);
                         if (i == 3)
